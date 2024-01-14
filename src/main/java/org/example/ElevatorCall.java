@@ -1,20 +1,50 @@
 package org.example;
 
-public class ElevatorCall implements Call{
-    public ChetElevator callToEvenFloor() {
-        // Логика вызова лифта на четный этаж
-        return new ChetElevator(Status.СВОБОДЕН);
-    }
+public enum ElevatorCall implements Call{
+    НЧЕТНЫЙ{
+        @Override
+        public ChetElevator callToEvenFloor() {return new ChetElevator(Status.СВОБОДЕН);}
 
-    public NeChetElevator callToOddFloor() {
-        // Логика вызова лифта на нечетный этаж
-        return new NeChetElevator(Status.СВОБОДЕН);
-    }
+        @Override
+        public NeChetElevator callToOddFloor() {
+            return null;
+        }
 
-    @Override
-    public EmployeeElevator callToEmployeeFloor() {
-        // Логика вызова лифта для сотрудника
-        return new EmployeeElevator(Status.СВОБОДЕН);
-    }
+        @Override
+        public EmployeeElevator callToEmployeeFloor() {
+            return null;
+        }
 
+    },
+
+    ННЕЧЕТНЫЙ{
+        @Override
+        public ChetElevator callToEvenFloor() {
+            return null;
+        }
+
+        @Override
+        public NeChetElevator callToOddFloor() {return new NeChetElevator(Status.СВОБОДЕН);}
+
+        @Override
+        public EmployeeElevator callToEmployeeFloor() {
+            return null;
+        }
+
+    },
+
+    НСОТРУДНИК{
+        @Override
+        public ChetElevator callToEvenFloor() {
+            return null;
+        }
+
+        @Override
+        public NeChetElevator callToOddFloor() {
+            return null;
+        }
+
+        @Override
+        public EmployeeElevator callToEmployeeFloor() {return new EmployeeElevator(Status.СВОБОДЕН);}
+    }
 }

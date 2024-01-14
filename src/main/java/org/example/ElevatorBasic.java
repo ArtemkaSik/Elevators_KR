@@ -1,14 +1,12 @@
 package org.example;
-
-public class ChetElevator extends Elevator {
-    private Type type = Type.ЧЕТНЫЙ;
-
+//Универсальный лифт(используется для определения свободного лифта)
+public class ElevatorBasic extends Elevator {
     private Status status;
-
-    public ChetElevator(Status status) {
+    private Type type;
+    public ElevatorBasic(Status status, Type type){
         this.status = status;
+        this.type = type;
     }
-
     public Status getStatus() {
         return status;
     }

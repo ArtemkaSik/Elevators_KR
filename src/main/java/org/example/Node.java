@@ -1,10 +1,11 @@
 package org.example;
 
 public class Node {
-    public boolean isFree;
+    public ElevatorBasic elevator;
     public Node next;
 
-    public Node(boolean isFree) {
-        this.isFree = isFree;
+    public Node(ElevatorBasic elevator) {
+        this.next = null;
+        this.elevator = elevator;
     }
 }

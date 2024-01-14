@@ -1,35 +1,44 @@
 package org.example;
 
 public class NextNumImp implements ElevatorFree{
-    private Node head = null;
+    private Node head;
 
-    public void add(boolean isFree) {
-        Node root = new Node(isFree);
+    public NextNumImp() {
+        head = null;
+    }
+
+    // Метод добавления нового лифта в список
+    public void add(ElevatorBasic elevator) {
         if (head == null) {
-            head = root;
-            head.next = head; // Закольцовываем список
+            head = new Node(elevator);
+            head.next = head;
         } else {
-            Node current = head;
-            while (current.next != head) {
-                current = current.next;
+            Node newNode = new Node(elevator);
+            Node temp = head;
+
+            while (temp.next != head) {
+                temp = temp.next;
             }
-            current.next = root;
-            root.next = head; // Закольцовываем список
+            temp.next = newNode;
+            newNode.next = head;
         }
     }
 
-    @Override
-    public ElevatorFree free() {
-        Node current = head;
-        while (current.next != head) {
-            if (current.isFree) {
-                return new NextNumImp(); // Возвращаем новый экземпляр свободного лифта
-            }
-            current = current.next;
+    // Метод для определения свободного лифта
+    public ElevatorBasic free() {
+        if (head == null) {
+            return null;
         }
-        if (current.isFree) {
-            return new NextNumImp(); // Возвращаем новый экземпляр свободного лифта
+
+        Node temp = head;
+        while (temp.next != head && temp.elevator.getStatus() == Status.ЗАНЯТ) {
+            temp = temp.next;
         }
-        return null; // Если свободного лифта не найдено, возвращаем null
+
+        if (temp.elevator.getStatus() == Status.СВОБОДЕН) {
+            return temp.elevator;
+        }
+
+        return null;
     }
 }
